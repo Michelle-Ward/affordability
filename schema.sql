@@ -9,5 +9,3 @@ CREATE TABLE payments (
   home_price INT NOT NULL,
   hoa BIT
 );
-
-INSERT INTO payments (home_price, hoa) VALUES (750000, 0);
