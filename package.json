@@ -20,15 +20,24 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "node": "^15.4.0",
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "webpack": "^5.13.0",
-    "webpack-cli": "^4.3.1"
+    "sequelize": "^6.3.5",
+    "webpack": "^5.13.0"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "sequelize-cli": "^6.2.0",
+    "webpack-cli": "^4.3.1"
   }
 }
