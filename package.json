@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon server/index.js",
     "build": "webpack -w"
   },
   "dependencies": {
@@ -17,9 +17,12 @@
     "@babel/preset-react": "^7.12.10",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "mysql": "^2.18.1",
     "node": "^15.4.0",
     "nodemon": "^2.0.7",
+    "path": "^0.12.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "webpack": "^5.13.0",
