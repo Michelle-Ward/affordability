@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import frisby from 'frisby';
-import { describe, it } from 'mocha';
+// import { describe, it } from 'mocha';
 
 describe('server', () => {
   it('should be running', () => frisby
