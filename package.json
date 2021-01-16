@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "seed": "node database/seed.js"
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
