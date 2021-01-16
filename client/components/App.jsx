@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FilterHub from './FilterHub';
+import GraphTable from './GraphTable';
 
 export default class App extends Component {
   constructor(props) {
