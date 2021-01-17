@@ -1,4 +1,4 @@
-const Payments = require('./Payments.js');
+const Payments = require('./payments.js');
 
 const createPaymentEntry = async (homePrice, hoa) => {
   Payments.create({
@@ -11,7 +11,7 @@ const createPaymentEntry = async (homePrice, hoa) => {
 };
 
 for (let i = 0; i < 100; i += 1) {
-  const homePrice = Math.floor(Math.random() * (5000000000 - 500000) + 500000);
+  const homePrice = Math.floor(Math.random() * (5000000 - 50000) + 500000);
   const hoa = Math.floor((Math.random() * 2));
   createPaymentEntry(homePrice, hoa);
 }
