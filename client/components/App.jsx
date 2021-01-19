@@ -30,8 +30,8 @@ export default class App extends Component {
         <div className="caption">
           <p className="text-base header">Calculate your monthly mortgage payments</p>
           <p className="text-base secondary">
-            Your est. payment:
-            { price }
+            Your est. payment: $
+            { Intl.NumberFormat({ style: 'currency', currency: 'US' }).format(price) }
             /month
           </p>
         </div>
