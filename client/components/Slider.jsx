@@ -6,6 +6,7 @@ position: relative;
 border-radius: 3px;
 background: #dddddd;
 height: 15px;
+width: 50%;
 cursor: pointer;
 `;
 
@@ -18,11 +19,13 @@ top: -5px;
 opacity: 0.5;
 background: #823eb7;
 cursor: pointer;
+overflow: hidden;
 `;
 
 const SliderHeader = styled.div`
 display: flex;
 justify-content: flex-end;
+width: 50%;
 `;
 
 const getPercentage = (current, max) => (100 * current) / max;
@@ -31,29 +34,19 @@ const getValue = (percentage, max) => (max / 100) * percentage;
 
 const getLeft = (percentage) => `calc(${percentage}% - 5px)`;
 
+const getPricePercentage = (percentage, price) => Math.floor(((percentage / 100) ** 2) * price);
+
 const Slider = ({ initial, max, onChange }) => {
   const sliderRef = useRef();
   const posRef = useRef();
-  const diff = useRef();
   const currentRef = useRef();
+
   const initialpercentage = getPercentage(initial, max);
 
   const [mouseDown, setMouseDown] = useState(false);
 
-  useEffect(() => {
-    const handleMouseDown = (e) => {
-      diff.current = e.clientX - posRef.current.getBoundingClientRect().left;
-    };
-    window.addEventListener('mousedown', handleMouseDown);
-    return () => {
-      window.removeEventListener('mousedown', handleMouseDown);
-    };
-  }, [mouseDown]);
-
   const handleDrag = ((e) => {
-    let newX = e.clientX
-      - diff.current
-      - sliderRef.current.getBoundingClientRect().left;
+    let newX = e.clientX - sliderRef.current.getBoundingClientRect().left - 5;
     const end = sliderRef.current.offsetWidth - posRef.current.offsetWidth;
 
     const start = 0;
@@ -66,31 +59,27 @@ const Slider = ({ initial, max, onChange }) => {
       newX = end;
     }
 
+
     const newPercentage = getPercentage(newX, end);
 
-    const newValue = getValue(newPercentage, max);
+    const newValue = getValue(newPercentage, end);
+
+    const OldRange = (end - 0);
+    const NewRange = (200 - 0);
+    const pricePercentage = (((newValue - 0) * NewRange) / OldRange) + 0;
+    const price = getPricePercentage(pricePercentage, initial);
 
     posRef.current.style.left = getLeft(newPercentage);
 
+    currentRef.current.textContent = price;
+
     onChange(newValue);
   });
-
-  // const handleUp = (() => {
-  //   document.removeEventListener('mouseup', handleUp);
-  //   document.removeEventListener('mousemove', handleDrag);
-  // });
-
-  // const handleEvent = ((e) => {
-  //     diff.current = e.clientX - posRef.current.getBoundingClientRect().left;
-  //     // handleDrag(e);
-  // });
 
   return (
     <>
       <SliderHeader>
         <strong ref={currentRef}>{initial}</strong>
-        &nbsp;/&nbsp;
-        {max}
       </SliderHeader>
       <StyledSlider
         ref={sliderRef}

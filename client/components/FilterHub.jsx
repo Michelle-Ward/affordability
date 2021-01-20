@@ -8,11 +8,12 @@ export default class FilterHub extends Component {
   }
 
   render() {
+    const { price } = this.props;
     return (
       <>
         <Slider
-          initial={10}
-          max={25}
+          initial={price}
+          max={price * 2}
           onChange={(value) => console.log(value)}
         />
       </>

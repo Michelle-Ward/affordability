@@ -35,7 +35,9 @@ export default class App extends Component {
             /month
           </p>
         </div>
-        <FilterHub />
+        <FilterHub
+          price={price}
+        />
         <GraphTable />
       </div>
     );
