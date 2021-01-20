@@ -1,5 +1,9 @@
-import React, { Component, useRef, useState, useEffect } from 'react';
+import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
+
+import {
+  getPercentage, getValue, getLeft, getPricePercentage,
+} from './helpers';
 
 const StyledSlider = styled.div`
 position: relative;
@@ -28,24 +32,24 @@ justify-content: flex-end;
 width: 50%;
 `;
 
-const getPercentage = (current, max) => (100 * current) / max;
+export default class Slider extends Component {
+  constructor(props) {
+    super(props);
+    this.sliderRef = createRef();
+    this.posRef = createRef();
+    this.currentRef = createRef();
+    this.state = {
+      mouseDown: false,
+    };
+    this.handleDrag = this.handleDrag.bind(this);
+    this.setMouseDown = this.setMouseDown.bind(this);
+  }
 
-const getValue = (percentage, max) => (max / 100) * percentage;
-
-const getLeft = (percentage) => `calc(${percentage}% - 5px)`;
-
-const getPricePercentage = (percentage, price) => Math.floor(((percentage / 100) ** 2) * price);
-
-const Slider = ({ initial, max, onChange }) => {
-  const sliderRef = useRef();
-  const posRef = useRef();
-  const currentRef = useRef();
-
-  const initialpercentage = getPercentage(initial, max);
-
-  const [mouseDown, setMouseDown] = useState(false);
-
-  const handleDrag = ((e) => {
+  handleDrag(e) {
+    const {
+      sliderRef, posRef, currentRef,
+    } = this;
+    const { initial, onChange } = this.props;
     let newX = e.clientX - sliderRef.current.getBoundingClientRect().left - 5;
     const end = sliderRef.current.offsetWidth - posRef.current.offsetWidth;
 
@@ -58,7 +62,6 @@ const Slider = ({ initial, max, onChange }) => {
     if (newX > end) {
       newX = end;
     }
-
 
     const newPercentage = getPercentage(newX, end);
 
@@ -74,26 +77,41 @@ const Slider = ({ initial, max, onChange }) => {
     currentRef.current.textContent = price;
 
     onChange(newValue);
-  });
+  }
 
-  return (
-    <>
-      <SliderHeader>
-        <strong ref={currentRef}>{initial}</strong>
-      </SliderHeader>
-      <StyledSlider
-        ref={sliderRef}
-        onMouseDown={() => setMouseDown(true)}
-        onMouseUp={() => setMouseDown(false)}
-        onMouseMove={mouseDown ? handleDrag : null}
-      >
-        <StyledPos
-          ref={posRef}
-          style={{ left: getLeft(initialpercentage) }}
-        />
-      </StyledSlider>
-    </>
-  );
-};
+  setMouseDown() {
+    const { mouseDown } = this.state;
+    this.setState({ mouseDown: !mouseDown });
+  }
 
-export default Slider;
+  render() {
+    const {
+      mouseDown,
+    } = this.state;
+    const {
+      handleDrag, setMouseDown, currentRef, sliderRef, posRef,
+    } = this;
+    const { initial, max } = this.props;
+
+    const initialpercentage = getPercentage(initial, max);
+
+    return (
+      <>
+        <SliderHeader>
+          <strong ref={currentRef}>{initial}</strong>
+        </SliderHeader>
+        <StyledSlider
+          ref={sliderRef}
+          onMouseDown={setMouseDown}
+          onMouseUp={setMouseDown}
+          onMouseMove={mouseDown ? handleDrag : null}
+        >
+          <StyledPos
+            ref={posRef}
+            style={{ left: getLeft(initialpercentage) }}
+          />
+        </StyledSlider>
+      </>
+    );
+  }
+}
