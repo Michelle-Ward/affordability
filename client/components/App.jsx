@@ -8,23 +8,32 @@ export default class App extends Component {
     super(props);
     this.state = {
       price: '',
+      initial: '',
     };
     this.getPricing = this.getPricing.bind(this);
+    this.handlePriceChange = this.handlePriceChange.bind(this);
   }
 
   componentDidMount() {
     this.getPricing();
   }
 
+  handlePriceChange(newPrice) {
+    this.setState({ price: newPrice });
+  }
+
   getPricing() {
     const randHome = Math.floor(Math.random() * 100);
     axios.get(`/api/home_price/${randHome}`)
-      .then(({ data: price }) => this.setState({ price: price[0].home_price }))
+      .then(({ data: price }) => this.setState({
+        price: price[0].home_price,
+        initial: price[0].home_price,
+      }))
       .catch((err) => console.log('unable to grab pricing of home: ', err));
   }
 
   render() {
-    const { price } = this.state;
+    const { initial, price } = this.state;
     return (
       <div className="affordability-container">
         <div className="caption">
@@ -36,7 +45,9 @@ export default class App extends Component {
           </p>
         </div>
         <FilterHub
+          initial={initial}
           price={price}
+          handlePriceChange={this.handlePriceChange}
         />
         <GraphTable />
       </div>

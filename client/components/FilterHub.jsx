@@ -1,22 +1,14 @@
-import React, { Component } from 'react';
-import Slider from './Slider';
+import React from 'react';
+import HomePrice from './HomePrice';
 
-export default class FilterHub extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const FilterHub = ({ initial, price, handlePriceChange }) => (
+  <>
+    <HomePrice
+      initial={initial}
+      price={price}
+      handlePriceChange={handlePriceChange}
+    />
+  </>
+);
 
-  render() {
-    const { price } = this.props;
-    return (
-      <>
-        <Slider
-          initial={price}
-          max={price * 2}
-          onChange={(value) => console.log(value)}
-        />
-      </>
-    );
-  }
-}
+export default FilterHub;
