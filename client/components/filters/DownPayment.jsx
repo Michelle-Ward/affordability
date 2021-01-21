@@ -13,7 +13,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   };
 
   const handleTextChange = (e) => {
-    setPercent(e.target.value);
+    setPercent(Number(e.target.value));
   };
 
   const handlePercentChange = () => {

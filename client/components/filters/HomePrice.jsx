@@ -8,7 +8,7 @@ const HomePrice = ({ initial, handlePriceChange }) => {
   // const [prevMax, setPrevMax] = useState(0);
 
   const handleDrag = (e) => {
-    setValue(e.target.value);
+    setValue(Number(e.target.value));
     // setFill((e.target.value / max || initial * 2) * 100);
     // setPrevMax(value);
     // console.log(prevMax, max)
@@ -20,11 +20,11 @@ const HomePrice = ({ initial, handlePriceChange }) => {
 
     //   setMax(value * 1.5);
     // }
-    handlePriceChange(e.target.value);
+    handlePriceChange(Number(e.target.value));
   };
 
   const handleTextChange = (e) => {
-    setValue(e.target.value);
+    setValue(Number(e.target.value));
   };
 
   return (
