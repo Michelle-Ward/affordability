@@ -17,7 +17,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
     setPercent(e.target.value);
   };
 
-  const handlePercentChange = (e) => {
+  const handlePercentChange = () => {
     setValue(price * (percent / 100));
   };
 
@@ -28,7 +28,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
           $
           <input
             type="text"
-            value={`${value || price * (downPayment / 100)}`}
+            value={`${Math.floor(value || price * (downPayment / 100))}`}
             onChange={handleTextChange}
           />
         </span>
