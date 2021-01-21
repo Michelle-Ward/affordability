@@ -7,16 +7,17 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initial: '',
-      price: '',
-      perMonth: '',
+      initial: 0,
+      price: 0,
+      perMonth: 0,
       downPayment: 20,
-      interestRate: '',
+      interestRate: 2.74,
       loanType: 30,
     };
     this.getPricing = this.getPricing.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
     this.handleDownPaymentChange = this.handleDownPaymentChange.bind(this);
+    this.handleInterestRateChange = this.handleInterestRateChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,20 +34,28 @@ export default class App extends Component {
     this.calculatePerMonth();
   }
 
+  handleInterestRateChange(newInterestRate) {
+    this.setState({ interestRate: newInterestRate });
+    this.calculatePerMonth();
+  }
+
   getPricing() {
     const randHome = Math.floor(Math.random() * 100);
     axios.get(`/api/home_price/${randHome}`)
       .then(({ data: price }) => {
-        this.setState({ initial: price[0].home_price });
-        this.handlePriceChange(price[0].home_price);
+        this.setState({ initial: Number(price[0].home_price) });
+        this.handlePriceChange(Number(price[0].home_price));
       })
       .catch((err) => console.log('unable to grab pricing of home: ', err));
   }
 
   calculatePerMonth() {
-    const { loanType, price, downPayment } = this.state;
+    const {
+      loanType, price, downPayment, interestRate,
+    } = this.state;
     this.setState({
-      perMonth: (price - (price * (downPayment / 100))) / (12 * loanType),
+      perMonth: ((price - (price * (downPayment / 100)))
+       / (12 * loanType)) + ((1 + ((interestRate / 100) / 12)) * price),
     });
   }
 
@@ -72,6 +81,7 @@ export default class App extends Component {
           loanType={loanType}
           handlePriceChange={this.handlePriceChange}
           handleDownPaymentChange={this.handleDownPaymentChange}
+          handleInterestRateChange={this.handleInterestRateChange}
         />
         <GraphTable />
       </div>

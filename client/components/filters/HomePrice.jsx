@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { SliderContainer, SliderHeader, Slider } from '../Styles';
 
-const HomePrice = ({ initial, price, handlePriceChange }) => {
+const HomePrice = ({ initial, handlePriceChange }) => {
   const [value, setValue] = useState(initial);
-  const [fill, setFill] = useState(75);
-  const [max, setMax] = useState(0);
-  const [prevMax, setPrevMax] = useState(0);
+  // const [max, setMax] = useState(0);
+  // const [prevMax, setPrevMax] = useState(0);
 
   const handleDrag = (e) => {
     setValue(e.target.value);
@@ -44,15 +44,25 @@ const HomePrice = ({ initial, price, handlePriceChange }) => {
         <input
           type="range"
           min="0"
-          max={max || initial * 2}
+          max={initial * 2}
           step="10"
-          value={value}
+          value={value || initial}
           onChange={handleDrag}
           style={{ flex: '2' }}
         />
       </Slider>
     </SliderContainer>
   );
+};
+
+HomePrice.propTypes = {
+  initial: PropTypes.number,
+  handlePriceChange: PropTypes.func,
+};
+
+HomePrice.defaultProps = {
+  initial: 1000000,
+  handlePriceChange: () => {},
 };
 
 export default HomePrice;

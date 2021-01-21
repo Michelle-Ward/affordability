@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { SliderContainer, SliderHeader, Slider } from '../Styles';
 
 const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   const [percent, setPercent] = useState(downPayment);
   const [value, setValue] = useState(price * (downPayment / 100));
-
-  const [max, setMax] = useState(30);
 
   const handleDrag = (e) => {
     setPercent(e.target.value);
@@ -40,7 +39,6 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
           />
           %
         </span>
-        {/* <strong>{value || initial}</strong> */}
       </SliderHeader>
       <Slider>
         <input
@@ -55,6 +53,18 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
       </Slider>
     </SliderContainer>
   );
+};
+
+DownPayment.propTypes = {
+  price: PropTypes.number,
+  downPayment: PropTypes.number,
+  handleDownPaymentChange: PropTypes.func,
+};
+
+DownPayment.defaultProps = {
+  price: 1000000,
+  downPayment: 20,
+  handleDownPaymentChange: () => {},
 };
 
 export default DownPayment;
