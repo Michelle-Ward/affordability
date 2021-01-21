@@ -3,7 +3,7 @@ import axios from 'axios';
 import FilterHub from './FilterHub';
 import GraphTable from './GraphTable';
 import {
-  calculatePrinciple, calculateTax, calculateAmount,
+  calculatePrinciple, calculateTax, calculateAmount, calculateMortageInsurance,
 } from './helpers';
 
 export default class App extends Component {
@@ -16,6 +16,9 @@ export default class App extends Component {
       downPayment: 20,
       interestRate: 2.74,
       loanType: 30,
+      principle: 0,
+      tax: 0,
+      mortgageIns: 0,
     };
     this.getPricing = this.getPricing.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
@@ -33,7 +36,13 @@ export default class App extends Component {
   }
 
   handleDownPaymentChange(newDownPayment) {
+    const { principle } = this.state;
     this.setState({ downPayment: newDownPayment });
+    if (newDownPayment < 20) {
+      this.setState({ mortgageIns: calculateMortageInsurance(principle) });
+    } else {
+      this.setState({ mortgageIns: 0 });
+    }
     this.calculatePerMonth();
   }
 
@@ -54,12 +63,12 @@ export default class App extends Component {
 
   calculatePerMonth() {
     const {
-      loanType, price, downPayment, interestRate,
+      loanType, price, downPayment, interestRate, mortgageIns, principle, tax,
     } = this.state;
-    const principle = calculatePrinciple(price, downPayment, interestRate, loanType);
-    const tax = calculateTax(price);
+    this.setState({ principle: calculatePrinciple(price, downPayment, interestRate, loanType) });
+    this.setState({ tax: calculateTax(price) });
     this.setState({
-      perMonth: (calculateAmount(principle, tax) / 12),
+      perMonth: (calculateAmount(principle, tax, mortgageIns) / 12),
     });
   }
 
@@ -87,7 +96,9 @@ export default class App extends Component {
           handleDownPaymentChange={this.handleDownPaymentChange}
           handleInterestRateChange={this.handleInterestRateChange}
         />
-        <GraphTable />
+        <GraphTable
+          state={this.state}
+        />
       </div>
     );
   }
