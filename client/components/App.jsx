@@ -19,6 +19,7 @@ export default class App extends Component {
       principle: 0,
       tax: 0,
       mortgageIns: 0,
+      insurance: 75,
     };
     this.getPricing = this.getPricing.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
@@ -32,6 +33,7 @@ export default class App extends Component {
 
   handlePriceChange(newPrice) {
     this.setState({ price: newPrice });
+    this.setPrinciple();
     this.calculatePerMonth();
   }
 
@@ -61,14 +63,21 @@ export default class App extends Component {
       .catch((err) => console.log('unable to grab pricing of home: ', err));
   }
 
-  calculatePerMonth() {
+  setPrinciple() {
     const {
-      loanType, price, downPayment, interestRate, mortgageIns, principle, tax,
+      price, downPayment, interestRate, loanType,
     } = this.state;
     this.setState({ principle: calculatePrinciple(price, downPayment, interestRate, loanType) });
+  }
+
+  calculatePerMonth() {
+    const {
+      price, mortgageIns, principle, tax, insurance,
+    } = this.state;
+    this.setPrinciple();
     this.setState({ tax: calculateTax(price) });
     this.setState({
-      perMonth: (calculateAmount(principle, tax, mortgageIns) / 12),
+      perMonth: (calculateAmount(principle, tax, mortgageIns, insurance) / 12),
     });
   }
 
