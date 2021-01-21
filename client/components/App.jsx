@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import FilterHub from './FilterHub';
 import GraphTable from './GraphTable';
+import {
+  calculatePrinciple, calculateTax, calculateAmount,
+} from './helpers';
 
 export default class App extends Component {
   constructor(props) {
@@ -53,9 +56,10 @@ export default class App extends Component {
     const {
       loanType, price, downPayment, interestRate,
     } = this.state;
+    const principle = calculatePrinciple(price, downPayment, interestRate, loanType);
+    const tax = calculateTax(price);
     this.setState({
-      perMonth: ((price - (price * (downPayment / 100)))
-       / (12 * loanType)) + ((1 + ((interestRate / 100) / 12)) * price),
+      perMonth: (calculateAmount(principle, tax) / 12),
     });
   }
 
