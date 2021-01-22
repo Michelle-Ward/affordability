@@ -17,3 +17,5 @@ export const Slider = styled.form`
   display: flex;
   width: 50%;
 `;
+
+export const Hub = styled.div``;

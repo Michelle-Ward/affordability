@@ -10,6 +10,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // eslint-disable-next-line react/no-unused-state
       initial: 0,
       price: 0,
       perMonth: 0,
@@ -25,6 +26,7 @@ export default class App extends Component {
     this.handlePriceChange = this.handlePriceChange.bind(this);
     this.handleDownPaymentChange = this.handleDownPaymentChange.bind(this);
     this.handleInterestRateChange = this.handleInterestRateChange.bind(this);
+    this.handleLoanTypeChange = this.handleLoanTypeChange.bind(this);
   }
 
   componentDidMount() {
@@ -53,10 +55,17 @@ export default class App extends Component {
     this.calculatePerMonth();
   }
 
+  handleLoanTypeChange(loanType) {
+    this.setState({ loanType });
+    this.setPrinciple();
+    this.calculatePerMonth();
+  }
+
   getPricing() {
     const randHome = Math.floor(Math.random() * 100);
     axios.get(`/api/home_price/${randHome}`)
       .then(({ data: price }) => {
+        // eslint-disable-next-line react/no-unused-state
         this.setState({ initial: Number(price[0].home_price) });
         this.handlePriceChange(Number(price[0].home_price));
       })
@@ -82,9 +91,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {
-      initial, price, downPayment, interestRate, perMonth, loanType,
-    } = this.state;
+    const { perMonth } = this.state;
     return (
       <div className="affordability-container">
         <div className="caption">
@@ -96,14 +103,11 @@ export default class App extends Component {
           </p>
         </div>
         <FilterHub
-          initial={initial}
-          price={price}
-          downPayment={downPayment}
-          interestRate={interestRate}
-          loanType={loanType}
+          state={this.state}
           handlePriceChange={this.handlePriceChange}
           handleDownPaymentChange={this.handleDownPaymentChange}
           handleInterestRateChange={this.handleInterestRateChange}
+          handleLoanTypeChange={this.handleLoanTypeChange}
         />
         <GraphTable
           state={this.state}
