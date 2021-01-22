@@ -7,7 +7,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   const [value, setValue] = useState(price * (downPayment / 100));
 
   const handleDrag = (e) => {
-    setPercent(e.target.value);
+    setPercent(Number(e.target.value));
 
     handleDownPaymentChange(Number(e.target.value));
   };
@@ -56,15 +56,9 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
 };
 
 DownPayment.propTypes = {
-  price: PropTypes.number,
-  downPayment: PropTypes.number,
-  handleDownPaymentChange: PropTypes.func,
-};
-
-DownPayment.defaultProps = {
-  price: 1000000,
-  downPayment: 20,
-  handleDownPaymentChange: () => {},
+  price: PropTypes.number.isRequired,
+  downPayment: PropTypes.number.isRequired,
+  handleDownPaymentChange: PropTypes.func.isRequired,
 };
 
 export default DownPayment;

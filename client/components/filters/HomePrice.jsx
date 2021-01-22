@@ -8,6 +8,7 @@ const HomePrice = ({ initial, handlePriceChange }) => {
   // const [prevMax, setPrevMax] = useState(0);
 
   const handleDrag = (e) => {
+    console.log(Number(e.target.value));
     setValue(Number(e.target.value));
     // setFill((e.target.value / max || initial * 2) * 100);
     // setPrevMax(value);

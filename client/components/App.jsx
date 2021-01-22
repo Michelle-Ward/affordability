@@ -5,6 +5,7 @@ import GraphTable from './GraphTable';
 import {
   calculatePrinciple, calculateTax, calculateAmount, calculateMortageInsurance,
 } from './helpers';
+import { GraphTableContainer, AffordabilityContainer } from './Styles';
 
 export default class App extends Component {
   constructor(props) {
@@ -34,31 +35,28 @@ export default class App extends Component {
   }
 
   handlePriceChange(newPrice) {
-    this.setState({ price: newPrice });
-    this.setPrinciple();
-    this.calculatePerMonth();
+    this.setState({ price: newPrice }, () => this.calculatePerMonth());
   }
 
   handleDownPaymentChange(newDownPayment) {
     const { principle } = this.state;
     this.setState({ downPayment: newDownPayment });
     if (newDownPayment < 20) {
-      this.setState({ mortgageIns: calculateMortageInsurance(principle) });
+      this.setState({ mortgageIns: calculateMortageInsurance(principle) },
+        () => this.calculatePerMonth());
     } else {
-      this.setState({ mortgageIns: 0 });
+      this.setState({ mortgageIns: 0 }, () => this.calculatePerMonth());
     }
-    this.calculatePerMonth();
   }
 
   handleInterestRateChange(newInterestRate) {
-    this.setState({ interestRate: newInterestRate });
-    this.calculatePerMonth();
+    this.setState({ interestRate: newInterestRate }, () => this.calculatePerMonth());
   }
 
-  handleLoanTypeChange(loanType) {
-    this.setState({ loanType });
-    this.setPrinciple();
-    this.calculatePerMonth();
+  handleLoanTypeChange(newLoanType) {
+    this.setState({ loanType: newLoanType }, () => {
+      this.calculatePerMonth();
+    });
   }
 
   getPricing() {
@@ -68,32 +66,35 @@ export default class App extends Component {
         // eslint-disable-next-line react/no-unused-state
         this.setState({ initial: Number(price[0].home_price) });
         this.handlePriceChange(Number(price[0].home_price));
+        this.calculatePerMonth();
       })
       .catch((err) => console.log('unable to grab pricing of home: ', err));
   }
 
-  setPrinciple() {
+  setPrinciple(callback) {
     const {
       price, downPayment, interestRate, loanType,
     } = this.state;
-    this.setState({ principle: calculatePrinciple(price, downPayment, interestRate, loanType) });
+    this.setState({ principle: calculatePrinciple(price, downPayment, interestRate, loanType) },
+      () => callback());
   }
 
   calculatePerMonth() {
-    const {
-      price, mortgageIns, principle, tax, insurance,
-    } = this.state;
-    this.setPrinciple();
-    this.setState({ tax: calculateTax(price) });
-    this.setState({
-      perMonth: (calculateAmount(principle, tax, mortgageIns, insurance) / 12),
+    this.setPrinciple(() => {
+      const {
+        price, mortgageIns, principle, tax, insurance,
+      } = this.state;
+      this.setState({ tax: calculateTax(price) });
+      this.setState({
+        perMonth: (calculateAmount(principle, tax, mortgageIns, insurance) / 12),
+      });
     });
   }
 
   render() {
     const { perMonth } = this.state;
     return (
-      <div className="affordability-container">
+      <AffordabilityContainer>
         <div className="caption">
           <p className="text-base header">Calculate your monthly mortgage payments</p>
           <p className="text-base secondary">
@@ -109,10 +110,15 @@ export default class App extends Component {
           handleInterestRateChange={this.handleInterestRateChange}
           handleLoanTypeChange={this.handleLoanTypeChange}
         />
-        <GraphTable
-          state={this.state}
-        />
-      </div>
+        <GraphTableContainer>
+          <GraphTable
+            state={this.state}
+          />
+          {/* <Index
+            state={this.state}
+          /> */}
+        </GraphTableContainer>
+      </AffordabilityContainer>
     );
   }
 }

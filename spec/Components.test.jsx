@@ -16,6 +16,15 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('<App />', () => {
   let wrapper;
   beforeEach(() => {
+    // const randHome = Math.floor(Math.random() * 100);
+    // let price;
+    // axios.get(`/api/home_price/${randHome}`)
+    //   .then(({ data: price }) => {
+    //     // eslint-disable-next-line react/no-unused-state
+    //     price = Number(price[0].home_price);
+    //   })
+    //   .catch((err) => console.log('unable to grab pricing of home: ', err));
+    // }
     wrapper = shallow(<App />);
     console.log(wrapper.find('FilterHub'));
   });
