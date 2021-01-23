@@ -89,7 +89,7 @@ export default class App extends Component {
       } = this.state;
       this.setState({ tax: calculateTax(price) });
       this.setState({
-        perMonth: (calculateAmount(principal, tax, mortgageIns, insurance) / 12),
+        perMonth: ((calculateAmount(principal, tax, mortgageIns) / 12) + insurance),
       });
     });
   }

@@ -12,11 +12,16 @@ export const calculateDownPaymentTotal = (
 ) => Math.floor(price * (downPayment / 100));
 
 export const calculatePrincipal = (
-  price, downPayment, interestRate, loanType,
+  price, downPayment, interestRate, loanType = 30,
 ) => {
   const downPaymentTotal = calculateDownPaymentTotal(price, downPayment);
   const deductedTotal = price - downPaymentTotal;
-  const totalWithInterest = deductedTotal * (1 + interestRate / 100);
+  let totalWithInterest;
+  if (deductedTotal > 0) {
+    totalWithInterest = deductedTotal * (1 + interestRate / 100);
+  } else {
+    totalWithInterest = (1 + interestRate / 100);
+  }
   return Math.floor(totalWithInterest / loanType);
 };
 
@@ -26,4 +31,4 @@ export const calculateMortageInsurance = (principal) => Math.floor(principal * (
 
 export const calculateAmount = (
   principal, tax, mortgageIns,
-) => Math.floor(principal + tax + mortgageIns + 75);
+) => (principal ? Math.floor(principal + tax + mortgageIns) : 0);

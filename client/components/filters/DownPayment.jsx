@@ -18,7 +18,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    setValue(null);
+    setValue(price * (percent / 100));
   }, [price]);
 
   const handleDrag = (e) => {
@@ -26,7 +26,7 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
     setPercent(target);
     setValue(price * (target / 100));
 
-    handleDownPaymentChange(Number(e.target.value));
+    handleDownPaymentChange(target);
   };
 
   const calculateDecimalPlaces = (number) => {
@@ -48,15 +48,22 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
 
   const handleTextChange = (e) => {
     const target = parseFloat(e.target.value.replace(/[^0-9-.]/g, ''));
-    setValue(target || 0);
     const per = ((target / price) * 100) || 0;
-    setPercent(per.toFixed(calculateDecimalPlaces(per)));
+    if (per > 100) {
+      setValue(price);
+      setPercent(100);
+    } else {
+      setValue(target || 0);
+      setPercent(per.toFixed(calculateDecimalPlaces(per)));
+    }
+    handleDownPaymentChange(per);
   };
 
   const handlePercentChange = (e) => {
     const target = Number(e.target.value);
     setValue(price * (target / 100) || 0);
     setPercent(target || 0);
+    handleDownPaymentChange(target);
   };
 
   return (
@@ -65,9 +72,10 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
         <SliderCaption>Down Payment</SliderCaption>
         <DualSliderInput>
           <SliderDollarSymbol>
+            {console.log(value)}
             <DualSliderTotalInput
               type="text"
-              value={`${value !== null ? Math.floor(value).toLocaleString() : Math.floor(price * (downPayment / 100)).toLocaleString()}`}
+              value={`${value !== 0 ? Math.floor(value).toLocaleString() : Math.floor(price * (downPayment / 100)).toLocaleString()}`}
               onChange={handleTextChange}
             />
           </SliderDollarSymbol>

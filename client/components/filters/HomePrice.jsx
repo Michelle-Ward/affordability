@@ -35,6 +35,8 @@ const HomePrice = ({ initial, handlePriceChange }) => {
   const handleTextChange = (e) => {
     const target = parseFloat(e.target.value.replace(/[^0-9-.]/g, ''));
     setValue(target || 0);
+
+    handlePriceChange(target || 0);
   };
 
   return (
