@@ -4,7 +4,7 @@ import HomePrice from './filters/HomePrice';
 import DownPayment from './filters/DownPayment';
 import InterestRate from './filters/InterestRate';
 import LoanType from './filters/LoanType';
-import { FilterHubContainer } from './Styles';
+import { FilterHubContainer, SliderHub } from './Styles';
 
 const FilterHub = ({
   state, handlePriceChange, handleDownPaymentChange, handleInterestRateChange, handleLoanTypeChange,
@@ -14,19 +14,21 @@ const FilterHub = ({
   } = state;
   return (
     <FilterHubContainer>
-      <HomePrice
-        initial={initial}
-        handlePriceChange={handlePriceChange}
-      />
-      <DownPayment
-        price={price}
-        downPayment={downPayment}
-        handleDownPaymentChange={handleDownPaymentChange}
-      />
-      <InterestRate
-        interestRate={interestRate}
-        handleInterestRateChange={handleInterestRateChange}
-      />
+      <SliderHub>
+        <HomePrice
+          initial={initial}
+          handlePriceChange={handlePriceChange}
+        />
+        <DownPayment
+          price={price}
+          downPayment={downPayment}
+          handleDownPaymentChange={handleDownPaymentChange}
+        />
+        <InterestRate
+          interestRate={interestRate}
+          handleInterestRateChange={handleInterestRateChange}
+        />
+      </SliderHub>
       <LoanType
         handleLoanTypeChange={handleLoanTypeChange}
       />

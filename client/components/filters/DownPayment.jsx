@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SliderContainer, SliderHeader, Slider } from '../Styles';
+import {
+  SliderContainer,
+  SliderHeader,
+  Slider,
+  DualSliderInput,
+  DualSliderPercentInput,
+  SliderDollarSymbol,
+  SliderPercentSymbol,
+  DualSliderTotalInput,
+  SliderCaption,
+  CustomSlider,
+} from '../Styles';
 
 const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   const [percent, setPercent] = useState(downPayment);
@@ -13,35 +24,40 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
   };
 
   const handleTextChange = (e) => {
-    setPercent(Number(e.target.value));
+    const target = parseFloat(e.target.value.replace(/[^0-9-.]/g, ''));
+
+    setValue(target);
   };
 
-  const handlePercentChange = () => {
-    setValue(price * (percent / 100));
+  const handlePercentChange = (e) => {
+    const target = Number(e.target.value);
+    setValue(price * (target / 100));
+    setPercent(target);
   };
 
   return (
     <SliderContainer>
       <SliderHeader>
-        <span>
-          $
-          <input
-            type="text"
-            value={`${Math.floor(value || price * (downPayment / 100))}`}
-            onChange={handleTextChange}
-          />
-        </span>
-        <span>
-          <input
-            type="text"
-            value={percent || 20}
-            onChange={handlePercentChange}
-          />
-          %
-        </span>
+        <SliderCaption>Down Payment</SliderCaption>
+        <DualSliderInput>
+          <SliderDollarSymbol>
+            <DualSliderTotalInput
+              type="text"
+              value={`${Math.floor(value || price * (downPayment / 100)).toLocaleString()}`}
+              onChange={handleTextChange}
+            />
+          </SliderDollarSymbol>
+          <SliderPercentSymbol>
+            <DualSliderPercentInput
+              type="text"
+              value={percent || 20}
+              onChange={handlePercentChange}
+            />
+          </SliderPercentSymbol>
+        </DualSliderInput>
       </SliderHeader>
       <Slider>
-        <input
+        <CustomSlider
           type="range"
           min="1"
           max="30"

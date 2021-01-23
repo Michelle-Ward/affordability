@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import {
 //   DropDownContainer, DropDownHeader, DropDownList, ListItem,
 // } from '../Styles';
+import { LoanTypeInput, LoanTypeSelect, LoanTypeCaption } from '../Styles';
 
 const LoanType = ({ handleLoanTypeChange }) => {
   const [loanTypes] = useState([
@@ -21,13 +22,15 @@ const LoanType = ({ handleLoanTypeChange }) => {
     handleLoanTypeChange(Number(e.target.value));
   };
   return (
-    <select onChange={handleChange} value={value}>
-      LoanType
-      {
+    <LoanTypeInput>
+      <LoanTypeCaption>Loan Type</LoanTypeCaption>
+      <LoanTypeSelect onChange={handleChange} value={value}>
+        {
         // eslint-disable-next-line react/no-array-index-key
         loanTypes.map((item, i) => <option key={i} value={item.value}>{item.label}</option>)
       }
-    </select>
+      </LoanTypeSelect>
+    </LoanTypeInput>
   );
 };
 

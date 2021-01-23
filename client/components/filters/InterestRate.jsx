@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SliderContainer, SliderHeader, Slider } from '../Styles';
+import {
+  SliderContainer,
+  SliderHeader,
+  Slider,
+  SliderPercentInput,
+  SliderPercentSymbol,
+  SliderCaption,
+  CustomSlider,
+} from '../Styles';
 
 const InterestRate = ({ interestRate, handleInterestRateChange }) => {
   const [value, setValue] = useState(interestRate);
@@ -18,17 +26,17 @@ const InterestRate = ({ interestRate, handleInterestRateChange }) => {
   return (
     <SliderContainer>
       <SliderHeader>
-        <span>
-          <input
+        <SliderCaption>Interest Rate</SliderCaption>
+        <SliderPercentSymbol>
+          <SliderPercentInput
             type="text"
             value={`${value || interestRate}`}
             onChange={handleTextChange}
           />
-          %
-        </span>
+        </SliderPercentSymbol>
       </SliderHeader>
       <Slider>
-        <input
+        <CustomSlider
           type="range"
           min="0"
           max={6.50}
@@ -49,7 +57,7 @@ InterestRate.propTypes = {
 
 InterestRate.defaultProps = {
   interestRate: 2.74,
-  handleInterestRateChange: () => {},
+  handleInterestRateChange: () => { },
 };
 
 export default InterestRate;

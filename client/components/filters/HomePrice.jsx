@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SliderContainer, SliderHeader, Slider } from '../Styles';
+import {
+  SliderContainer,
+  SliderHeader,
+  Slider,
+  SliderInput,
+  SliderDollarSymbol,
+  SliderCaption,
+  CustomSlider,
+} from '../Styles';
 
 const HomePrice = ({ initial, handlePriceChange }) => {
   const [value, setValue] = useState(initial);
+
   // const [max, setMax] = useState(0);
   // const [prevMax, setPrevMax] = useState(0);
 
   const handleDrag = (e) => {
-    console.log(Number(e.target.value));
     setValue(Number(e.target.value));
     // setFill((e.target.value / max || initial * 2) * 100);
     // setPrevMax(value);
@@ -25,24 +33,24 @@ const HomePrice = ({ initial, handlePriceChange }) => {
   };
 
   const handleTextChange = (e) => {
-    setValue(Number(e.target.value));
+    const target = parseFloat(e.target.value.replace(/[^0-9-.]/g, ''));
+    setValue(target);
   };
 
   return (
     <SliderContainer>
       <SliderHeader>
-        <span>
-          $
-          <input
+        <SliderCaption>Home Price</SliderCaption>
+        <SliderDollarSymbol>
+          <SliderInput
             type="text"
-            value={`${value || initial}`}
+            value={`${value ? value.toLocaleString() : initial.toLocaleString()}`}
             onChange={handleTextChange}
           />
-        </span>
-        {/* <strong>{value || initial}</strong> */}
+        </SliderDollarSymbol>
       </SliderHeader>
       <Slider>
-        <input
+        <CustomSlider
           type="range"
           min="0"
           max={initial * 2}
@@ -63,7 +71,7 @@ HomePrice.propTypes = {
 
 HomePrice.defaultProps = {
   initial: 1000000,
-  handlePriceChange: () => {},
+  handlePriceChange: () => { },
 };
 
 export default HomePrice;

@@ -6,7 +6,9 @@ import Guide from './Guide';
 import {
   calculatePrincipal, calculateTax, calculateAmount, calculateMortageInsurance,
 } from './helpers';
-import { GraphTableContainer, AffordabilityContainer } from './Styles';
+import {
+  GraphTableContainer, AffordabilityContainer, Caption, CaptionHeader,
+} from './Styles';
 
 export default class App extends Component {
   constructor(props) {
@@ -96,14 +98,15 @@ export default class App extends Component {
     const { perMonth } = this.state;
     return (
       <AffordabilityContainer>
-        <div className="caption">
+        <Caption>
+          <CaptionHeader>Affordability</CaptionHeader>
           <p className="text-base header">Calculate your monthly mortgage payments</p>
           <p className="text-base secondary">
             Your est. payment: $
             { Intl.NumberFormat({ style: 'currency', currency: 'US' }).format(Math.floor(perMonth)) }
             /month
           </p>
-        </div>
+        </Caption>
         <FilterHub
           state={this.state}
           handlePriceChange={this.handlePriceChange}

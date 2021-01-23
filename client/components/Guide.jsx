@@ -17,7 +17,7 @@ const Guide = ({ state }) => {
         <FactorText>Principal & Interest</FactorText>
         <Price>
           $
-          { Math.floor(principal / 12) }
+          { Math.floor(principal / 12).toLocaleString() }
         </Price>
       </Content>
       <Content>
@@ -27,7 +27,7 @@ const Guide = ({ state }) => {
         <FactorText>Property Taxes</FactorText>
         <Price>
           $
-          { tax }
+          { tax.toLocaleString() }
         </Price>
       </Content>
       <Content>
@@ -47,7 +47,7 @@ const Guide = ({ state }) => {
         <FactorText>Mortgage ins. & other</FactorText>
         <Price>
           $
-          { mortgageIns }
+          { Math.floor(mortgageIns / 12) }
         </Price>
       </Content>
     </Index>
