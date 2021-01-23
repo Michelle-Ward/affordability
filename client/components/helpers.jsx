@@ -11,7 +11,7 @@ export const calculateDownPaymentTotal = (
   price, downPayment,
 ) => Math.floor(price * (downPayment / 100));
 
-export const calculatePrinciple = (
+export const calculatePrincipal = (
   price, downPayment, interestRate, loanType,
 ) => {
   const downPaymentTotal = calculateDownPaymentTotal(price, downPayment);
@@ -22,8 +22,8 @@ export const calculatePrinciple = (
 
 export const calculateTax = (price) => Math.floor(price * 0.000675);
 
-export const calculateMortageInsurance = (principle) => Math.floor(principle * (14.65 / 100));
+export const calculateMortageInsurance = (principal) => Math.floor(principal * (14.65 / 100));
 
 export const calculateAmount = (
-  principle, tax, mortgageIns,
-) => Math.floor(principle + tax + mortgageIns + 75);
+  principal, tax, mortgageIns,
+) => Math.floor(principal + tax + mortgageIns + 75);

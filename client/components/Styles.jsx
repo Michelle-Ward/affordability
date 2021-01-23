@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const AffordabilityContainer = styled.div``;
+export const AffordabilityContainer = styled.div`
+  width: 100%
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0 50px;
+`;
 
 export const SliderContainer = styled.div`
   width: 100%;
@@ -21,12 +26,13 @@ export const Slider = styled.form`
 `;
 
 export const InnerText = styled.div`
-  display: flex;
-  flex-direction: column;
   position: absolute;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 0.4rem;
 `;
 
 export const PerMonthValue = styled.div`
@@ -42,9 +48,45 @@ export const FilterHubContainer = styled.div``;
 
 export const GraphTableContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 20rem;
-  height: 20rem;
   font-size: 10px;
+  `;
+
+export const Graph = styled.div`
+  position: relative;
+`;
+
+export const Index = styled.div`
+  width: 500px;
+  padding: 45px 0px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
+  box-sizing: border-box;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: 5px 0 5px;
+  font-size: 16px;
+  line-height: 1.5;
+`;
+
+export const FactorColor = styled.div`
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin: 0 5px;
+`;
+
+export const FactorText = styled.div`
+  flex: 1;
+
+`;
+
+export const Price = styled.div`
+  font-weight: 900;
 `;

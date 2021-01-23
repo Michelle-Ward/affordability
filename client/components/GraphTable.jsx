@@ -1,26 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InnerText, PerMonthValue, PerMonthText } from './Styles';
+import {
+  Graph, InnerText, PerMonthValue, PerMonthText,
+} from './Styles';
 
 const GraphTable = ({ state }) => {
   const {
-    perMonth, principle, mortgageIns, tax, insurance,
+    perMonth, principal, mortgageIns, tax, insurance,
   } = state;
-  const principlePerMonth = Math.floor(principle / 12);
+  const principalPerMonth = Math.floor(principal / 12);
   const mortgageInsPerMonth = Math.floor(mortgageIns / 12);
   const section = (data, total) => (data / total) * 100;
-  const total = principlePerMonth + mortgageInsPerMonth + tax + insurance;
-  const principleSection = section(principlePerMonth, total);
+  const total = principalPerMonth + mortgageInsPerMonth + tax + insurance;
+  const principalSection = section(principalPerMonth, total);
   const mortgageInsSection = section(mortgageInsPerMonth, total);
   const taxSection = section(tax, total);
   const insuranceSection = section(insurance, total);
 
-  const taxSectionOffset = 100 - principleSection + 25;
+  const taxSectionOffset = 100 - principalSection + 25;
   const insuranceSectionOffset = taxSectionOffset - taxSection;
   const mortgageInsSectionOffset = insuranceSectionOffset - insuranceSection;
 
   return (
-    <>
+    <Graph>
       <InnerText>
         <PerMonthValue>
           $
@@ -36,7 +38,7 @@ const GraphTable = ({ state }) => {
           fill="none"
           stroke="#052286"
           strokeWidth="3.8"
-          strokeDasharray={`${principleSection} ${100 - principleSection}`}
+          strokeDasharray={`${principalSection} ${100 - principalSection}`}
           strokeDashoffset="25"
         />
         {
@@ -77,14 +79,14 @@ const GraphTable = ({ state }) => {
         />
         <circle cx="21" cy="21" r="15.91549430918952" fill="none" />
       </svg>
-    </>
+    </Graph>
   );
 };
 
 GraphTable.propTypes = {
   state: PropTypes.shape({
     perMonth: PropTypes.number.isRequired,
-    principle: PropTypes.number.isRequired,
+    principal: PropTypes.number.isRequired,
     mortgageIns: PropTypes.number.isRequired,
     tax: PropTypes.number.isRequired,
     insurance: PropTypes.number.isRequired,

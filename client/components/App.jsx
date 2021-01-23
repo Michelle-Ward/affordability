@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import FilterHub from './FilterHub';
 import GraphTable from './GraphTable';
+import Guide from './Guide';
 import {
-  calculatePrinciple, calculateTax, calculateAmount, calculateMortageInsurance,
+  calculatePrincipal, calculateTax, calculateAmount, calculateMortageInsurance,
 } from './helpers';
 import { GraphTableContainer, AffordabilityContainer } from './Styles';
 
@@ -18,7 +19,7 @@ export default class App extends Component {
       downPayment: 20,
       interestRate: 2.74,
       loanType: 30,
-      principle: 0,
+      principal: 0,
       tax: 0,
       mortgageIns: 0,
       insurance: 75,
@@ -39,10 +40,10 @@ export default class App extends Component {
   }
 
   handleDownPaymentChange(newDownPayment) {
-    const { principle } = this.state;
+    const { principal } = this.state;
     this.setState({ downPayment: newDownPayment });
     if (newDownPayment < 20) {
-      this.setState({ mortgageIns: calculateMortageInsurance(principle) },
+      this.setState({ mortgageIns: calculateMortageInsurance(principal) },
         () => this.calculatePerMonth());
     } else {
       this.setState({ mortgageIns: 0 }, () => this.calculatePerMonth());
@@ -71,22 +72,22 @@ export default class App extends Component {
       .catch((err) => console.log('unable to grab pricing of home: ', err));
   }
 
-  setPrinciple(callback) {
+  setPrincipal(callback) {
     const {
       price, downPayment, interestRate, loanType,
     } = this.state;
-    this.setState({ principle: calculatePrinciple(price, downPayment, interestRate, loanType) },
+    this.setState({ principal: calculatePrincipal(price, downPayment, interestRate, loanType) },
       () => callback());
   }
 
   calculatePerMonth() {
-    this.setPrinciple(() => {
+    this.setPrincipal(() => {
       const {
-        price, mortgageIns, principle, tax, insurance,
+        price, mortgageIns, principal, tax, insurance,
       } = this.state;
       this.setState({ tax: calculateTax(price) });
       this.setState({
-        perMonth: (calculateAmount(principle, tax, mortgageIns, insurance) / 12),
+        perMonth: (calculateAmount(principal, tax, mortgageIns, insurance) / 12),
       });
     });
   }
@@ -114,9 +115,9 @@ export default class App extends Component {
           <GraphTable
             state={this.state}
           />
-          {/* <Index
+          <Guide
             state={this.state}
-          /> */}
+          />
         </GraphTableContainer>
       </AffordabilityContainer>
     );
