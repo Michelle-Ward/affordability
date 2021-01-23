@@ -11,13 +11,13 @@ import {
 } from '../Styles';
 
 const HomePrice = ({ initial, handlePriceChange }) => {
-  const [value, setValue] = useState(initial);
+  const [value, setValue] = useState(null);
 
   // const [max, setMax] = useState(0);
   // const [prevMax, setPrevMax] = useState(0);
 
   const handleDrag = (e) => {
-    setValue(Number(e.target.value));
+    setValue(Number(e.target.value) || 0);
     // setFill((e.target.value / max || initial * 2) * 100);
     // setPrevMax(value);
     // console.log(prevMax, max)
@@ -29,12 +29,12 @@ const HomePrice = ({ initial, handlePriceChange }) => {
 
     //   setMax(value * 1.5);
     // }
-    handlePriceChange(Number(e.target.value));
+    handlePriceChange(Number(e.target.value) || 0);
   };
 
   const handleTextChange = (e) => {
     const target = parseFloat(e.target.value.replace(/[^0-9-.]/g, ''));
-    setValue(target);
+    setValue(target || 0);
   };
 
   return (
@@ -44,7 +44,7 @@ const HomePrice = ({ initial, handlePriceChange }) => {
         <SliderDollarSymbol>
           <SliderInput
             type="text"
-            value={`${value ? value.toLocaleString() : initial.toLocaleString()}`}
+            value={`${value !== null ? value.toLocaleString() : initial.toLocaleString()}`}
             onChange={handleTextChange}
           />
         </SliderDollarSymbol>
@@ -55,7 +55,7 @@ const HomePrice = ({ initial, handlePriceChange }) => {
           min="0"
           max={initial * 2}
           step="10"
-          value={value || initial}
+          value={value !== null ? value : initial}
           onChange={handleDrag}
           style={{ flex: '2' }}
         />

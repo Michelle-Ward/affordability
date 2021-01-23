@@ -11,16 +11,16 @@ import {
 } from '../Styles';
 
 const InterestRate = ({ interestRate, handleInterestRateChange }) => {
-  const [value, setValue] = useState(interestRate);
+  const [value, setValue] = useState(null);
 
   const handleDrag = (e) => {
     const target = Number(e.target.value);
-    setValue(target);
-    handleInterestRateChange(target);
+    setValue(target || 0);
+    handleInterestRateChange(target || 0);
   };
 
   const handleTextChange = (e) => {
-    setValue(e.target.value);
+    setValue(e.target.value || 0);
   };
 
   return (
@@ -30,7 +30,7 @@ const InterestRate = ({ interestRate, handleInterestRateChange }) => {
         <SliderPercentSymbol>
           <SliderPercentInput
             type="text"
-            value={`${value || interestRate}`}
+            value={`${value !== null ? value : interestRate}`}
             onChange={handleTextChange}
           />
         </SliderPercentSymbol>
@@ -41,7 +41,7 @@ const InterestRate = ({ interestRate, handleInterestRateChange }) => {
           min="0"
           max={6.50}
           step="0.1"
-          value={value}
+          value={value !== null ? value : interestRate}
           onChange={handleDrag}
           style={{ flex: '2' }}
         />
