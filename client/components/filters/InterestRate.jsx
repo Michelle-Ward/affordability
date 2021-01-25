@@ -12,16 +12,19 @@ import {
 
 const InterestRate = ({ interestRate, handleInterestRateChange }) => {
   const [value, setValue] = useState(null);
+  const [textValue, setTextValue] = useState(null);
 
   const handleDrag = (e) => {
     const target = parseFloat(e.target.value);
     setValue(target || 0);
+    setTextValue(e.target.value);
     handleInterestRateChange(target || 0);
   };
 
   const handleTextChange = (e) => {
     const target = parseFloat(e.target.value);
     setValue(target || 0);
+    setTextValue(e.target.value);
     handleInterestRateChange(target || 0);
   };
 
@@ -32,7 +35,7 @@ const InterestRate = ({ interestRate, handleInterestRateChange }) => {
         <SliderPercentSymbol>
           <SliderPercentInput
             type="text"
-            value={`${value !== null ? value : interestRate}`}
+            value={`${textValue !== null ? textValue : interestRate}`}
             onChange={handleTextChange}
           />
         </SliderPercentSymbol>
