@@ -27,7 +27,11 @@ export const calculatePrincipal = (
 
 export const calculateTax = (price) => Math.floor(price * 0.000675);
 
-export const calculateMortageInsurance = (principal) => Math.floor(principal * (14.65 / 100));
+export const calculateMortageInsurance = (price, downPayment) => {
+  const downPaymentTotal = calculateDownPaymentTotal(price, downPayment);
+  const deductedTotal = price - downPaymentTotal;
+  return Math.floor((deductedTotal * (5.285 / 100)) / 12);
+};
 
 export const calculateAmount = (
   price, principal, tax, mortgageIns,

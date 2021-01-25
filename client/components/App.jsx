@@ -38,10 +38,10 @@ export default class App extends Component {
   }
 
   handlePriceChange(newPrice) {
-    const { downPayment, principal } = this.state;
+    const { downPayment } = this.state;
     this.setState({ price: newPrice });
     if (downPayment < 20) {
-      this.setState({ mortgageIns: calculateMortageInsurance(principal) },
+      this.setState({ mortgageIns: calculateMortageInsurance(newPrice, downPayment) },
         () => this.calculatePerMonth());
     } else {
       this.setState({ mortgageIns: 0 }, () => this.calculatePerMonth());
@@ -49,10 +49,10 @@ export default class App extends Component {
   }
 
   handleDownPaymentChange(newDownPayment) {
-    const { principal } = this.state;
+    const { price } = this.state;
     this.setState({ downPayment: newDownPayment });
     if (newDownPayment < 20) {
-      this.setState({ mortgageIns: calculateMortageInsurance(principal) },
+      this.setState({ mortgageIns: calculateMortageInsurance(price, newDownPayment) },
         () => this.calculatePerMonth());
     } else {
       this.setState({ mortgageIns: 0 }, () => this.calculatePerMonth());
@@ -92,10 +92,12 @@ export default class App extends Component {
   calculatePerMonth() {
     this.setPrincipal(() => {
       const {
-        price, mortgageIns, principal, tax, insurance,
+        price, downPayment, mortgageIns, principal, tax, insurance,
       } = this.state;
       this.setState({ tax: calculateTax(price) });
-      this.setState({ mortgageIns: calculateMortageInsurance(principal) });
+      if (downPayment < 20) {
+        this.setState({ mortgageIns: calculateMortageInsurance(price, downPayment) });
+      }
       this.setState({
         perMonth: ((calculateAmount(price, principal, tax, mortgageIns) / 12) + insurance),
       });
