@@ -38,7 +38,14 @@ export default class App extends Component {
   }
 
   handlePriceChange(newPrice) {
-    this.setState({ price: newPrice }, () => this.calculatePerMonth());
+    const { downPayment, principal } = this.state;
+    this.setState({ price: newPrice });
+    if (downPayment < 20) {
+      this.setState({ mortgageIns: calculateMortageInsurance(principal) },
+        () => this.calculatePerMonth());
+    } else {
+      this.setState({ mortgageIns: 0 }, () => this.calculatePerMonth());
+    }
   }
 
   handleDownPaymentChange(newDownPayment) {
@@ -88,8 +95,9 @@ export default class App extends Component {
         price, mortgageIns, principal, tax, insurance,
       } = this.state;
       this.setState({ tax: calculateTax(price) });
+      this.setState({ mortgageIns: calculateMortageInsurance(principal) });
       this.setState({
-        perMonth: ((calculateAmount(principal, tax, mortgageIns) / 12) + insurance),
+        perMonth: ((calculateAmount(price, principal, tax, mortgageIns) / 12) + insurance),
       });
     });
   }

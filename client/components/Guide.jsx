@@ -47,7 +47,7 @@ const Guide = ({ state }) => {
         <FactorText>Mortgage ins. & other</FactorText>
         <Price>
           $
-          { Math.floor(mortgageIns / 12) }
+          { Math.floor(mortgageIns / 12).toLocaleString() }
         </Price>
       </Content>
     </Index>

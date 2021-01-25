@@ -72,7 +72,6 @@ const DownPayment = ({ downPayment, price, handleDownPaymentChange }) => {
         <SliderCaption>Down Payment</SliderCaption>
         <DualSliderInput>
           <SliderDollarSymbol>
-            {console.log(value)}
             <DualSliderTotalInput
               type="text"
               value={`${value !== 0 ? Math.floor(value).toLocaleString() : Math.floor(price * (downPayment / 100)).toLocaleString()}`}

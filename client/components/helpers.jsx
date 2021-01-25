@@ -30,5 +30,5 @@ export const calculateTax = (price) => Math.floor(price * 0.000675);
 export const calculateMortageInsurance = (principal) => Math.floor(principal * (14.65 / 100));
 
 export const calculateAmount = (
-  principal, tax, mortgageIns,
-) => (principal ? Math.floor(principal + tax + mortgageIns) : 0);
+  price, principal, tax, mortgageIns,
+) => (price ? Math.floor(principal + tax + mortgageIns) : 0);
