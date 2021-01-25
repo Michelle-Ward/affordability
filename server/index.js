@@ -21,6 +21,13 @@ app.get('/api/home_price/:id', async (req, res) => {
     .then((pricing) => res.status(200).send(pricing));
 });
 
+app.get('/api/home_price', async (req, res) => {
+  await db.query('SELECT * FROM payments', {
+    type: QueryTypes.SELECT,
+  })
+    .then((pricing) => res.status(200).send(pricing));
+});
+
 app.get('/all_rates', (req, res) => {
   res.send();
 });
