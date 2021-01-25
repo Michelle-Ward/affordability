@@ -4,10 +4,8 @@
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/AXlia/carousel-service
+  - https://github.com/AXlia/photo-gallery
 
 ## Table of Contents
 
