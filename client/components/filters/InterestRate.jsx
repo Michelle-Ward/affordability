@@ -14,13 +14,15 @@ const InterestRate = ({ interestRate, handleInterestRateChange }) => {
   const [value, setValue] = useState(null);
 
   const handleDrag = (e) => {
-    const target = Number(e.target.value);
+    const target = parseFloat(e.target.value);
     setValue(target || 0);
     handleInterestRateChange(target || 0);
   };
 
   const handleTextChange = (e) => {
-    setValue(e.target.value || 0);
+    const target = parseFloat(e.target.value);
+    setValue(target || 0);
+    handleInterestRateChange(target || 0);
   };
 
   return (
