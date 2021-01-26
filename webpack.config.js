@@ -7,7 +7,7 @@ module.exports = {
   entry: path.join(SRC_DIR, 'index.jsx'),
   output: {
     path: OUT_DIR,
-    filename: 'app.js',
+    filename: 'bundle.js',
   },
   module: {
     rules: [
