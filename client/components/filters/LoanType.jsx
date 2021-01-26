@@ -7,19 +7,19 @@ import { LoanTypeInput, LoanTypeSelect, LoanTypeCaption } from '../Styles';
 
 const LoanType = ({ handleLoanTypeChange }) => {
   const [loanTypes] = useState([
-    { label: '30-year fixed', value: 30 },
-    { label: '20-year fixed', value: 20 },
-    { label: '15-year fixed', value: 15 },
-    { label: '10-year fixed', value: 10 },
-    { label: 'FHA 30-year fixed', value: 30 },
-    { label: 'FHA 15-year fixed', value: 15 },
-    { label: 'VA 30-year fixed', value: 30 },
-    { label: 'VA 15-year fixed', value: 15 },
+    { label: '30-year fixed', value: '30' },
+    { label: '20-year fixed', value: '20' },
+    { label: '15-year fixed', value: '15' },
+    { label: '10-year fixed', value: '10' },
+    { label: 'FHA 30-year fixed', value: 'FHA 30' },
+    { label: 'FHA 15-year fixed', value: 'FHA 15' },
+    { label: 'VA 30-year fixed', value: 'VA 30' },
+    { label: 'VA 15-year fixed', value: 'VA 15' },
   ]);
   const [value, setValue] = useState(30);
   const handleChange = (e) => {
-    setValue(Number(e.target.value));
-    handleLoanTypeChange(Number(e.target.value));
+    setValue(e.target.value);
+    handleLoanTypeChange(e.target.value);
   };
   return (
     <LoanTypeInput>

@@ -64,9 +64,55 @@ export default class App extends Component {
   }
 
   handleLoanTypeChange(newLoanType) {
-    this.setState({ loanType: newLoanType }, () => {
-      this.calculatePerMonth();
-    });
+    if (newLoanType === '30') {
+      this.setState({ loanType: 30 }, () => {
+        this.setState({ interestRate: 2.74 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === '20') {
+      this.setState({ loanType: 20 }, () => {
+        this.setState({ interestRate: 2.68 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === '15') {
+      this.setState({ loanType: 15 }, () => {
+        this.setState({ interestRate: 2.27 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === '10') {
+      this.setState({ loanType: 10 }, () => {
+        this.setState({ interestRate: 2.48 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === 'FHA 30') {
+      this.setState({ loanType: 30 }, () => {
+        this.setState({ interestRate: 0.00 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === 'FHA 15') {
+      this.setState({ loanType: 15 }, () => {
+        this.setState({ interestRate: 0.00 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === 'VA 30') {
+      this.setState({ loanType: 30 }, () => {
+        this.setState({ interestRate: 2.31 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    } else if (newLoanType === 'VA 15') {
+      this.setState({ loanType: 15 }, () => {
+        this.setState({ interestRate: 2.22 }, () => {
+          this.calculatePerMonth();
+        });
+      });
+    }
   }
 
   getPricing() {
@@ -113,7 +159,7 @@ export default class App extends Component {
           <p className="text-base header">Calculate your monthly mortgage payments</p>
           <p className="text-base secondary">
             Your est. payment: $
-            { Intl.NumberFormat({ style: 'currency', currency: 'US' }).format(Math.floor(perMonth)) }
+            {Intl.NumberFormat({ style: 'currency', currency: 'US' }).format(Math.floor(perMonth))}
             /month
           </p>
         </Caption>
