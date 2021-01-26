@@ -66,51 +66,35 @@ export default class App extends Component {
   handleLoanTypeChange(newLoanType) {
     if (newLoanType === '30') {
       this.setState({ loanType: 30 }, () => {
-        this.setState({ interestRate: 2.74 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.74);
       });
     } else if (newLoanType === '20') {
       this.setState({ loanType: 20 }, () => {
-        this.setState({ interestRate: 2.68 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.68);
       });
     } else if (newLoanType === '15') {
       this.setState({ loanType: 15 }, () => {
-        this.setState({ interestRate: 2.27 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.27);
       });
     } else if (newLoanType === '10') {
       this.setState({ loanType: 10 }, () => {
-        this.setState({ interestRate: 2.48 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.48);
       });
     } else if (newLoanType === 'FHA 30') {
       this.setState({ loanType: 30 }, () => {
-        this.setState({ interestRate: 0.00 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(0.00);
       });
     } else if (newLoanType === 'FHA 15') {
       this.setState({ loanType: 15 }, () => {
-        this.setState({ interestRate: 0.00 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(0.00);
       });
     } else if (newLoanType === 'VA 30') {
       this.setState({ loanType: 30 }, () => {
-        this.setState({ interestRate: 2.31 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.31);
       });
     } else if (newLoanType === 'VA 15') {
       this.setState({ loanType: 15 }, () => {
-        this.setState({ interestRate: 2.22 }, () => {
-          this.calculatePerMonth();
-        });
+        this.handleInterestRateChange(2.22);
       });
     }
   }

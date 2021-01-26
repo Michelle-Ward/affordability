@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   SliderContainer,
@@ -13,6 +13,11 @@ import {
 const InterestRate = ({ interestRate, handleInterestRateChange }) => {
   const [value, setValue] = useState(null);
   const [textValue, setTextValue] = useState(null);
+
+  useEffect(() => {
+    setValue(interestRate);
+    setTextValue(interestRate.toString());
+  }, [interestRate]);
 
   const handleDrag = (e) => {
     const target = parseFloat(e.target.value);
