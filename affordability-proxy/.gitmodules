@@ -1,0 +1,12 @@
+[submodule "photo-gallery"]
+	path = photo-gallery
+	url = https://github.com/AXlia/photo-gallery.git
+[submodule "affordability-proxy"]
+	path = affordability-proxy
+	url = https://github.com/AXlia/affordability-proxy.git
+[submodule "carousel-service"]
+	path = carousel-service
+	url = https://github.com/AXlia/carousel-service.git
+[submodule "affordability"]
+	path = affordability
+	url = https://github.com/AXlia/affordability.git

@@ -1,0 +1,3 @@
+[submodule "affordability-proxy/photo-gallery"]
+	path = affordability-proxy/photo-gallery
+	url = https://github.com/AXlia/photo-gallery.git
