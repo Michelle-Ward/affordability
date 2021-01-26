@@ -15,22 +15,25 @@ export const calculatePrincipal = (
   price, downPayment, interestRate, loanType = 30,
 ) => {
   const downPaymentTotal = calculateDownPaymentTotal(price, downPayment);
-  const deductedTotal = price - downPaymentTotal;
-  let totalWithInterest;
-  if (deductedTotal > 0) {
-    totalWithInterest = deductedTotal * (1 + interestRate / 100);
+  const principal = price - downPaymentTotal;
+  let totalInterest;
+  const r = (interestRate / 1200);
+
+  if (principal > 0) {
+    totalInterest = (((principal * r) * (12 * loanType)) * 0.5695);
   } else {
-    totalWithInterest = (1 + interestRate / 100);
+    totalInterest = (1 + interestRate / 100);
   }
-  return Math.floor(totalWithInterest / loanType);
+
+  return Math.floor(((principal + totalInterest) / (loanType)));
 };
 
 export const calculateTax = (price) => Math.floor(price * 0.000675);
 
 export const calculateMortageInsurance = (price, downPayment) => {
   const downPaymentTotal = calculateDownPaymentTotal(price, downPayment);
-  const deductedTotal = price - downPaymentTotal;
-  return Math.floor((deductedTotal * (5.285 / 100)) / 12);
+  const principal = price - downPaymentTotal;
+  return Math.floor((principal * (5.285 / 100)) / 12);
 };
 
 export const calculateAmount = (
