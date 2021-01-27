@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Graph, InnerText, PerMonthValue, PerMonthText,
+  Graph, InnerText, PerMonthValue, PerMonthText, GraphSVG
 } from './Styles';
 
 const GraphTable = ({ state }) => {
@@ -30,7 +30,7 @@ const GraphTable = ({ state }) => {
         </PerMonthValue>
         <PerMonthText>/month</PerMonthText>
       </InnerText>
-      <svg width="50%" height="50%" viewBox="0 0 42 42" className="donut">
+      <GraphSVG width="50%" height="50%" viewBox="0 0 42 42" className="donut">
         <circle
           cx="21"
           cy="21"
@@ -78,7 +78,7 @@ const GraphTable = ({ state }) => {
           strokeDashoffset={insuranceSectionOffset}
         />
         <circle cx="21" cy="21" r="15.91549430918952" fill="none" />
-      </svg>
+      </GraphSVG>
     </Graph>
   );
 };

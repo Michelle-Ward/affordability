@@ -289,3 +289,8 @@ export const FactorText = styled.div`
 export const Price = styled.div`
   font-weight: 900;
 `;
+
+export const GraphSVG = styled.svg`
+  width: 100%!important;
+  height: 100%!important;
+`;

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { QueryTypes } = require('sequelize');
 const db = require('../database/index');
 
-const PORT = 3000;
+const PORT = 3002;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
