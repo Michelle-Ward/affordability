@@ -24,3 +24,4 @@ lib-cov
 build/
 dist/
 
+docker-compose.yml
