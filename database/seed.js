@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const Payments = require('./payments.js');
+const Payments = require('./Payments.js');
 
 const createPaymentEntry = (homePrice, hoa) => {
   const connection = mysql.createConnection({
