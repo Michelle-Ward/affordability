@@ -24,6 +24,4 @@ lib-cov
 build/
 dist/
 
-# docker-compose.yml
-
-.sensitive-information.js
+docker-compose.yml
