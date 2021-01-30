@@ -17,8 +17,6 @@ const createPaymentEntry = (homePrice, hoa) => {
           hoa,
         })
           .then(() => console.log('data saved!'))
-          .then(() => {
-          })
           .catch((err) => console.log(err));
       });
   });

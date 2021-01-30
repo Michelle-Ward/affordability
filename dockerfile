@@ -11,5 +11,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3002
-CMD ["node", "server/index.js"]
+EXPOSE 3002 3306
+
+ADD start.sh /
+RUN chmod u+x /start.sh
+
+CMD ["/start.sh"]

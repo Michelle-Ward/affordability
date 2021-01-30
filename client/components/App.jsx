@@ -100,8 +100,8 @@ export default class App extends Component {
   }
 
   getPricing() {
-    const randHome = Math.floor(Math.random() * 100);
-    axios.get(`/api/home_price/${randHome}`)
+    const home = window.location.pathname;
+    axios.get(`/api/home_price${home}`)
       .then(({ data: price }) => {
         // eslint-disable-next-line react/no-unused-state
         this.setState({ initial: Number(price[0].home_price) });
